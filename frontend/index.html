@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HẠ MIÊN - THỜI TRANG NỮ CAO CẤP</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-text">MIỄN PHÍ VẬN CHUYỂN ĐƠN TỪ 500K &nbsp;|&nbsp; ĐỔI TRẢ 7 NGÀY &nbsp;|&nbsp; HOTLINE: 0337 473 458</span>
+  <div class="topbar-search">
+    <input type="text" placeholder="Tìm sản phẩm..."/>
+    <button>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+       <circle cx="11" cy="11" r="8"></circle>
+       <path d="M21 21l-4.35-4.35"></path>
+     </svg>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">HẠ MIÊN</div>
+
+<nav>
+      <a href="#" onclick="showPage('home');return false;" id="nav-home" class="nav-active">Trang Chủ</a>
+      <a href="#" onclick="showPage('danhmuc');return false;" id="nav-danhmuc">Danh Mục</a>
+      <a href="#" onclick="showPage('bosuutap');return false;" id="nav-bosuutap">Bộ Sưu Tập</a>
+      <div class="nav-dropdown-wrap">
+        <a href="#" id="nav-help" class="acc-trigger">Trợ Giúp</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-item" onclick="openHelp('about')">Về Chúng Tôi</a>
+          <a class="nav-dropdown-item" onclick="openHelp('care')">Chăm Sóc Khách Hàng</a>
+          <a class="nav-dropdown-item" onclick="openHelp('policy')">Chính Sách</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="header-actions">
+
+      <div class="acc-dropdown-wrap">
+        <a href="#" class="acc-trigger"> TÀI KHOẢN</a>
+        <div class="acc-dropdown">
+          <a class="acc-dropdown-item" onclick="openAuth('login');return false;">
+               ĐĂNG NHẬP
+          </a>
+          <a class="acc-dropdown-item" onclick="openAuth('register');return false;">
+               ĐĂNG KÝ
+          </a>
+        </div>
+      </div>
+                <a href="#" class="hdr-icon-btn" onclick="showPage('wishlist');return false;">
+         YÊU THÍCH
+        <span class="hdr-badge" id="wishlist-count">0</span>
+      </a>
+
+
+      <a href="#" class="hdr-icon-btn" onclick="showPage('cart');return false;">
+         GIỎ HÀNG
+        <span class="hdr-badge" id="cart-count">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div id="auth-modal">
+  <div class="auth-panel">
+
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+
+    <div class="auth-form" id="auth-login">
+      <div class="auth-logo"></div>
+      <h2 class="auth-title">Đăng Nhập</h2>
+      <p class="auth-sub">Chào mừng bạn quay trở lại!</p>
+
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email" placeholder="email@example.com"/>
+      </div>
+      <div class="auth-field">
+        <label>Mật khẩu</label>
+        <div class="auth-pw-wrap">
+          <input type="password" id="login-pw" placeholder="Nhập mật khẩu"/>
+        </div>
+      </div>
+
+      <div class="auth-row">
+        <label class="auth-remember">
+          <input type="checkbox" checked/> Ghi nhớ đăng nhập
+        </label>
+        <a class="auth-forgot" href="#">Quên mật khẩu?</a>
+      </div>
+
+      <button class="auth-btn">ĐĂNG NHẬP</button>
+
+      <div class="auth-divider"><span>hoặc đăng nhập với</span></div>
+
+      <div class="auth-social-row">
+        <button class="auth-social auth-google">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Google
+        </button>
+        <button class="auth-social auth-facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          Facebook
+        </button>
+      </div>
+
+      <p class="auth-switch">
+        Chưa có tài khoản?
+        <a onclick="switchAuth('register')">Đăng ký ngay</a>
+      </p>
+    </div>
+
+    <div class="auth-form" id="auth-register" style="display:none">
+      <div class="auth-logo">HẠ MIÊN</div>
+      <h2 class="auth-title">Đăng Ký</h2>
+      <p class="auth-sub">Tạo tài khoản để mua sắm dễ dàng hơn</p>
+
+      <div class="auth-field">
+        <label>Họ và tên</label>
+        <input type="text"/>
+      </div>
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email"/>
+      </div>
+      <div class="auth-field">
+        <label>Số điện thoại</label>
+        <input type="tel"/>
+      </div>
+      <div class="auth-field">
+        <label>Mật khẩu</label>
+        <div class="auth-pw-wrap">
+          <input type="password" id="reg-pw" placeholder="Tối thiểu 8 ký tự"/>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label>Xác nhận mật khẩu</label>
+        <div class="auth-pw-wrap">
+          <input type="password" id="reg-pw2" placeholder="Nhập lại mật khẩu"/>
+        </div>
+      </div>
+
+      <label class="auth-remember" style="margin-bottom:18px;display:flex;gap:8px;align-items:flex-start">
+        <input type="checkbox" style="margin-top:3px"/>
+        <span style="font-size:12px;color:#888">Tôi đồng ý với <a href="#" style="color:var(--black)">Điều khoản dịch vụ</a> và <a href="#" style="color:var(--black)">Chính sách bảo mật</a> của HẠ MIÊN</span>
+      </label>
+
+      <button class="auth-btn">ĐĂNG KÝ</button>
+
+      <div class="auth-divider"><span>hoặc đăng ký với</span></div>
+
+      <div class="auth-social-row">
+        <button class="auth-social auth-google">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Google
+        </button>
+        <button class="auth-social auth-facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          Facebook
+        </button>
+      </div>
+
+      <p class="auth-switch">
+        Đã có tài khoản?
+        <a onclick="switchAuth('login')">Đăng nhập</a>
+      </p>
+    </div>
+
+  </div></div><div id="page-home">
+
+<section class="hero">
+  <div class="hero-slides">
+
+    <div class="hero-slide active">
+      <div class="img-box" style="height:100%; display:block; padding:0;">
+         <img src="web_img/bst_khuc_dien_vien/slide.png" alt="Slide 1"/>
+      </div>
+    </div>
+
+    <div class="hero-slide">
+      <div class="img-box" style="height:100%; display:block; padding:0;">
+          <img src="web_img/bst_nang_hoa_mo/S2.png" alt="Slide 2"/>
+      </div>
+    </div>
+
+  </div>
+  <div class="slider-dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+  </div>
+  <div class="slider-arrow slider-prev" onclick="changeSlide(-1)">&#8249;</div>
+  <div class="slider-arrow slider-next" onclick="changeSlide(1)">&#8250;</div>
+</section>
+
+<section class="products-section">
+  <div class="section-title">
+    <h2>SẢN PHẨM BÁN CHẠY</h2>
+    <div class="diamond-divider">
+       <span class="line"></span><span class="diamond"></span><span class="line"></span>
+    </div>
+  </div>
+  <div class="products-inner">
+    <div class="products-grid" id="bestseller-grid"></div>
+  </div>
+</section>
+<section class="new-section">
+  <div class="section-title" style="padding-top:0">
+    <h2>SẢN PHẨM MỚI</h2>
+    <div class="diamond-divider" style="margin-top: 15px;">
+       <span class="line3"></span>
+       <span class="diamond"></span>
+       <span class="line3"></span>
+    </div>
+  </div>
+
+  <div class="new-grid" id="new-arrival-grid"></div>
+  
+</section>
+
+<div class="section-title">
+  <h2>BỘ SƯU TẬP</h2>
+  <div class="diamond-divider" style="margin-top: 15px;">
+     <span class="line2"></span>
+     <span class="diamond"></span>
+     <span class="line2"></span>
+  </div>
+</div>
+
+<section class="promo-section">
+  <div class="promo-card">
+    <div class="img-box" style="height:100%">
+      <img src="web_img/bst_khuc_dien_vien/bst_khuc_dien_vien.jpg" alt="KHÚC ĐIỀN VIÊN"/>
+    </div>
+    <div class="promo-overlay">
+      <h3>KHÚC ĐIỀN VIÊN</h3>
+      <p>Hơi thở tự do của mùa hạ</p>
+      <a href="#" onclick="showPage('bosuutap'); openCollection('bst-1'); return false;" class="btn-promo">Xem Bộ Sưu Tập</a>
+    </div>
+  </div>
+
+  <div class="promo-card">
+    <div class="img-box" style="height:100%">
+      <img src="web_img/bst_nang_hoa_mo/bst_nang_hoa_mo.jpg" alt="Knitwear Collection"/>
+    </div>
+    <div class="promo-overlay">
+      <h3>NẮNG HOA MƠ</h3>
+      <p>Vẻ đẹp thuần khiết trong nắng</p>
+      <a href="#" onclick="showPage('bosuutap'); openCollection('bst-2'); return false;" class="btn-promo">Khám Phá</a>
+    </div>
+  </div>
+</section>
+</div><div id="page-danhmuc">
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">Trang chủ</a>
+      <span class="sep">›</span>
+      <span class="bc-current">Thời Trang Nữ</span>
+    </div>
+  </div>
+
+  <div class="dm-wrapper">
+      <aside class="dm-sidebar">
+              <div class="dm-sidebar-block">
+                <div class="dm-sidebar-head">Danh Mục Sản Phẩm</div>
+                <div class="dm-cat-parent" id="cat-ao" onclick="filterCategory('ao', 'Áo')">Áo</div>
+                <div class="dm-cat-parent" id="cat-dam" onclick="filterCategory('dam', 'Váy Đầm Công Sở')">Váy Đầm Công Sở</div>
+                <div class="dm-cat-parent" id="cat-chanvay" onclick="filterCategory('chanvay', 'Chân Váy')">Chân Váy</div>
+                <div class="dm-cat-parent" id="cat-quan" onclick="filterCategory('quan', 'Quần')">Quần</div>
+              </div>
+
+              <div class="dm-sidebar-block">
+                <div class="dm-store-head">Chọn Mức Giá</div>
+                <label class="dm-store-item"><input type="checkbox"/> Dưới 200.000đ</label>
+                <label class="dm-store-item"><input type="checkbox"/> 200.000đ - 300.000đ</label>
+                <label class="dm-store-item"><input type="checkbox"/> 300.000đ - 500.000đ</label>
+                <label class="dm-store-item"><input type="checkbox"/> 500.000đ - 800.000đ</label>
+              </div>
+            </aside>
+
+            <main class="dm-content">
+              <div class="dm-content-header">
+                <span class="dm-title" id="dm-category-title">Thời Trang Nữ</span>
+                <div class="dm-sort">
+                  Sắp xếp:
+                  <select>
+                    <option>Mặc định</option>
+                    <option>Giá tăng dần</option>
+                    <option>Giá giảm dần</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="dm-grid" id="dm-products-grid"></div>
+
+              <div class="dm-pagination">
+                <div class="dm-pgbtn">‹</div>
+                <div class="dm-pgbtn active">1</div>
+                <div class="dm-pgbtn">2</div>
+                <div class="dm-pgbtn">3</div>
+                <div class="dm-pgbtn">4</div>
+                <div class="dm-pgbtn">5</div>
+                <div class="dm-pgbtn">›</div>
+              </div>
+            </main>
+  </div>
+</div>
+<div id="page-wishlist" style="display:none">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">TRANG CHỦ</a>
+      <span class="sep">›</span>
+      <span class="bc-current">SẢN PHẨM YÊU THÍCH</span>
+    </div>
+  </div>
+  <div class="wl-wrapper">
+    <div class="wl-header">
+      <h1 class="wl-title">SẢN PHẨM YÊU THÍCH</h1>
+      <div class="title-line" style="margin:10px 0 0"></div>
+    </div>
+
+    <div class="wl-empty" id="wl-empty">
+      <p class="wl-empty-text">Bạn chưa có sản phẩm yêu thích nào</p>
+      <button class="wl-empty-btn" onclick="showPage('home')">TIẾP TỤC MUA SẮM</button>
+    </div>
+
+    <div class="wl-grid" id="wl-grid"></div>
+  </div>
+</div>
+
+<div id="page-cart" style="display:none">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">TRANG CHỦ</a>
+      <span class="sep">›</span>
+      <span class="bc-current">GIỎ HÀNG</span>
+    </div>
+  </div>
+  <div class="cart-wrapper">
+    <div class="wl-header">
+      <h1 class="wl-title">GIỎ HÀNG</h1>
+      <div class="title-line" style="margin:10px 0 0"></div>
+    </div>
+
+    <div class="wl-empty" id="cart-empty">
+      <p class="wl-empty-text">Giỏ hàng của bạn đang trống</p>
+      <button class="wl-empty-btn" onclick="showPage('home')">TIẾP TỤC MUA SẮM</button>
+    </div>
+
+    <div id="cart-content" style="display:none">
+      <div class="cart-layout">
+
+        <div class="cart-items-col">
+          <div class="cart-items-head">
+            <span>SẢN PHẨM</span>
+            <span>GIÁ</span>
+            <span>SỐ LƯỢNG</span>
+            <span>THÀNH TIỀN</span>
+          </div>
+          <div id="cart-items-list"></div>
+        </div>
+
+        <div class="cart-summary">
+          <div class="cart-summary-title">TÓM TẮT ĐƠN HÀNG</div>
+
+          <div class="cart-summary-row">
+            <span>TẠM TÍNH</span>
+            <span id="cart-subtotal">0đ</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>PHÍ VẬN CHUYỂN</span>
+            <span id="cart-ship">MIỄN PHÍ</span>
+          </div>
+          <div class="cart-summary-divider"></div>
+          <div class="cart-summary-row cart-summary-total">
+            <span>TỔNG CỘNG</span>
+            <span id="cart-total">0đ</span>
+          </div>
+
+          <div class="cart-coupon">
+            <input type="text" placeholder="Mã giảm giá..." id="coupon-input"/>
+            <button onclick="applyCoupon()">ÁP DỤNG</button>
+          </div>
+
+          <button class="cart-checkout-btn">
+             THANH TOÁN NGAY
+          </button>
+          <button class="cart-continue-btn" onclick="showPage('home')">
+            ← TIẾP TỤC MUA SẮM
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="page-bosuutap" style="display:none">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">TRANG CHỦ</a>
+      <span class="sep">›</span>
+      <span class="bc-current">BỘ SƯU TẬP</span>
+    </div>
+  </div>
+<div class="bst-wrapper">
+    <div class="bst-header">
+      <h1 class="bst-title">BỘ SƯU TẬP</h1>
+      <p class="bst-subtitle">Khám phá ngôn ngữ thời trang qua những mảnh ghép cảm xúc được Hạ Miên đan dệt.</p>
+      <div class="title-line" style="margin:16px auto 0"></div>
+    </div>
+
+    <div id="bst-list-view">
+      <div class="bst-main-grid">
+        <div class="bst-card" onclick="openCollection('bst-1')">
+          <img src="web_img/bst_khuc_dien_vien/bst_khuc_dien_vien.jpg" alt="Khúc Điền Viên">
+          <div class="bst-overlay"><h3>KHÚC ĐIỀN VIÊN</h3></div>
+        </div>
+
+        <div class="bst-card" onclick="openCollection('bst-2')">
+          <img src="web_img/bst_nang_hoa_mo/bst_nang_hoa_mo.jpg" alt="Nắng Hoa Mơ">
+          <div class="bst-overlay"><h3>NẮNG HOA MƠ</h3></div>
+        </div>
+
+        <div class="bst-card" onclick="openCollection('bst-3')">
+          <img src="web_img/bst_tho/photos-hamien-18.jpg" alt="Dáng Lụa">
+          <div class="bst-overlay"><h3>THƠ</h3></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="bst-detail-view" style="display:none;">
+      
+      <button class="bst-back-btn" onclick="closeCollection()">← QUAY LẠI DANH SÁCH</button>
+      
+      <section class="collection-block" id="bst-1">
+        <div class="col-text">
+          <h2 class="col-title">KHÚC ĐIỀN VIÊN</h2>
+        </div>
+        <div class="col-grid">
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-1.jpg" alt="Ảnh 1"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-3.jpg" alt="Ảnh 2"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-7.jpg" alt="Ảnh 3"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-10.jpg" alt="Ảnh 4"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-11.jpg" alt="Ảnh 5"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-12.jpg" alt="Ảnh 6"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-16.jpg" alt="Ảnh 7"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-18.jpg" alt="Ảnh 8"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_khuc_dien_vien/photos-khucdienvien-20.jpg" alt="Ảnh 9"/></div></div>
+        </div>
+      </section>
+
+      <section class="collection-block" id="bst-2">
+        <div class="col-text">
+          <h2 class="col-title">NẮNG HOA MƠ</h2>
+        </div>
+        <div class="col-grid">
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-3.jpg" alt="Ảnh 1"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-4.jpg" alt="Ảnh 2"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-6.jpg" alt="Ảnh 3"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-19.jpg" alt="Ảnh 4"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-20.jpg" alt="Ảnh 5"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-25.jpg" alt="Ảnh 6"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-26.jpg" alt="Ảnh 7"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-27.jpg" alt="Ảnh 8"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_nang_hoa_mo/photos-nanghoamo-28.jpg" alt="Ảnh 9"/></div></div>
+        </div>
+      </section>
+
+      <section class="collection-block" id="bst-3">
+        <div class="col-text">
+          <h2 class="col-title">THƠ</h2>
+        </div>
+        <div class="col-grid">
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-2.jpg" alt="Ảnh 1"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-3.jpg" alt="Ảnh 2"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-4.jpg" alt="Ảnh 3"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-5.jpg" alt="Ảnh 4"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-6.jpg" alt="Ảnh 5"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-10.jpg" alt="Ảnh 6"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-11.jpg" alt="Ảnh 7"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-20.jpg" alt="Ảnh 8"/></div></div>
+          <div class="col-item"><div class="img-box"><img src="web_img/bst_tho/photos-hamien-18.jpg" alt="Ảnh 9"/></div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="page-help" style="display:none">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">TRANG CHỦ</a>
+      <span class="sep">›</span>
+      <a onclick="showPage('home')">TRỢ GIÚP</a>
+      <span class="sep">›</span>
+      <span class="bc-current" id="help-bc">Chính Sách</span>
+    </div>
+  </div>
+
+  <div class="dm-wrapper help-wrapper">
+    <aside class="dm-sidebar">
+      <div class="dm-sidebar-block">
+        <div class="dm-sidebar-head">TRỢ GIÚP</div>
+        <div class="help-menu">
+          <a class="help-link" id="link-about" onclick="openHelp('about')">Về Chúng Tôi</a>
+          <a class="help-link" id="link-care" onclick="openHelp('care')">Chăm Sóc Khách Hàng</a>
+          <a class="help-link" id="link-policy" onclick="openHelp('policy')">Chính sách</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="dm-content help-content-area">
+      <h1 class="help-main-title" id="help-title">Tiêu Đề</h1>
+      <div class="help-content-body" id="help-body">
+        </div>
+    </main>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-footer">HẠ MIÊN</div>
+      <p>HẠ MIÊN là một trong những thương hiệu thời trang nữ hàng đầu Việt Nam, ra đời năm 2015. Sứ mệnh tạo ra sản phẩm thời trang nữ chất lượng tốt nhất.</p>
+      <p>Hotline: <strong style="color:var(--gold)">0337 473 458</strong></p>
+    </div>
+    <div class="footer-col">
+      <h4>Danh Mục</h4>
+      <ul>
+        <li><a href="#">Áo</a></li>
+        <li><a href="#">Váy đầm công sở</a></li>
+        <li><a href="#">Quần</a></li>
+        <li><a href="#">Chân váy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Chính Sách Khách Hàng</h4>
+      <ul>
+        <li><a href="#" onclick="openHelp('loyalty'); return false;">Chính Sách KH Thân Thiết</a></li>
+        <li><a href="#" onclick="openHelp('policy-return'); return false;">Chính Sách Đổi và Trả Hàng</a></li>
+        <li><a href="#" onclick="openHelp('policy-warranty'); return false;">Chính Sách Bảo Hành</a></li>
+        <li><a href="#" onclick="openHelp('policy-privacy'); return false;">Chính Sách Bảo Mật</a></li>
+        <li><a href="#" onclick="openHelp('guide'); return false;">Hướng Dẫn Sử Dụng</a></li>
+        <li><a href="#" onclick="openHelp('faq'); return false;">Các Câu Hỏi Thường Gặp</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>VỀ HẠ MIÊN</h4>
+      <ul>
+        <li><a href="#" onclick="openHelp('about'); return false;">VỀ HẠ MIÊN</a></li>
+        <li><a href="#" onclick="openHelp('care'); return false;">Chăm Sóc Khách Hàng</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HẠ MIÊN. All rights reserved.</span>
+    <span>Thiết kế bởi HẠ MIÊN Team</span>
+  </div>
+</footer>
+
+<div id="product-modal">
+
+  <div class="pm-panel">
+
+    <button class="pm-close" onclick="closeProduct()" title="Đóng">✕</button>
+
+    <div class="pm-breadcrumb">
+      <a onclick="closeProduct()">TRANG CHỦ</a>
+      <span class="sep">›</span>
+      <a onclick="closeProduct()">THỜI TRANG NỮ</a>
+      <span class="sep">›</span>
+      <span class="current" id="pm-bc-name">TÊN SẢN PHẨM</span>
+    </div>
+
+    <div class="pm-body">
+
+      <div class="pm-images">
+        <div class="pm-main-img">
+          <div class="img-box" id="pm-main-img-box">
+            <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-info">
+
+        <h1 class="pm-name" id="pm-name">Tên Sản Phẩm</h1>
+
+        <div class="pm-meta">
+          <span>Mã: <strong id="pm-code">RR26XX00</strong></span>
+          <span>Thương hiệu: <strong>HẠ MIÊN</strong></span>
+          <span><span class="pm-status-dot"></span> Còn hàng</span>
+        </div>
+
+        <div class="pm-price" id="pm-price">0đ</div>
+
+        <hr class="pm-divider"/>
+
+        <div class="pm-label">Kích thước: <span id="pm-size-selected">XS</span></div>
+        <div class="pm-sizes">
+          <button class="pm-size-btn active" onclick="pmSelectSize(this)">XS</button>
+          <button class="pm-size-btn" onclick="pmSelectSize(this)">S</button>
+          <button class="pm-size-btn" onclick="pmSelectSize(this)">M</button>
+          <button class="pm-size-btn" onclick="pmSelectSize(this)">L</button>
+          <button class="pm-size-btn" onclick="pmSelectSize(this)">XL</button>
+        </div>
+
+        <hr class="pm-divider"/>
+
+        <div class="pm-cart-row">
+          <div class="pm-qty">
+            <button class="pm-qty-btn" onclick="pmQty(-1)">−</button>
+            <div class="pm-qty-num" id="pm-qty-num">1</div>
+            <button class="pm-qty-btn" onclick="pmQty(1)">+</button>
+          </div>
+          <button class="pm-add-cart" onclick="addToCart()">
+             THÊM VÀO GIỎ HÀNG
+          </button>
+        </div>
+
+        <div class="pm-trust">
+          <div class="pm-trust-item">Miễn phí ship từ 500K</div>
+          <div class="pm-trust-item">Đổi trả trong 7 ngày</div>
+          <div class="pm-trust-item">Bảo đảm chính hãng</div>
+          <div class="pm-trust-item">Hỗ trợ 24/7</div>
+        </div>
+
+        <h3 class="pm-extra-title" style="margin-top: 24px; margin-bottom: 10px;">ẢNH SẢN PHẨM</h3>
+        <div class="pm-thumbs" id="pm-thumbs" style="margin-bottom: 24px;">
+          <div class="pm-thumb active" onclick="pmSelectThumb(this, 0)">
+            <div class="img-box" id="pm-thumb-0"></div>
+          </div>
+          <div class="pm-thumb" onclick="pmSelectThumb(this, 1)">
+            <div class="img-box" id="pm-thumb-1"></div>
+          </div>
+        </div>
+
+        <div class="pm-extra-img" style="margin-top: 0; padding: 0;">
+            <h3 class="pm-extra-title">HƯỚNG DẪN CHỌN SIZE</h3>
+            <img src="web_img/size_v2.png" alt="Hướng dẫn chọn size"/>
+        </div>
+
+      </div></div><div class="pm-tabs-section" style="padding: 0 32px;">
+      <div class="pm-tabs">
+        <div class="pm-tab" onclick="pmSwitchTab(this,'tab-size')">CHI TIẾT SIZE SẢN PHẨM</div>
+        <div class="pm-tab" onclick="pmSwitchTab(this,'tab-policy')">CHÍNH SÁCH ĐỔI VÀ TRẢ HÀNG</div>
+        <div class="pm-tab" onclick="pmSwitchTab(this,'tab-guide')">HƯỚNG DẪN SỬ DỤNG</div>
+      </div>
+
+      <div class="pm-tab-content" id="tab-size">
+        <ul>
+          <li>XS: Ngực 76–80cm, Eo 60–64cm, Hông 84–88cm</li>
+          <li>S: Ngực 80–84cm, Eo 64–68cm, Hông 88–92cm</li>
+          <li>M: Ngực 84–88cm, Eo 68–72cm, Hông 92–96cm</li>
+          <li>L: Ngực 88–92cm, Eo 72–76cm, Hông 96–100cm</li>
+          <li>XL: Ngực 92–96cm, Eo 76–80cm, Hông 100–104cm</li>
+        </ul>
+      </div>
+
+      <div class="pm-tab-content" id="tab-policy">
+        <ul>
+          <li>Thời gian đổi hàng: 3 ngày tính từ thời điểm giao hàng thành công.</li>
+          <li>Hỗ trợ đổi size / đổi mẫu 1 lần cho một đơn hàng.</li>
+          <li>Sản phẩm chưa qua sử dụng; không dính bẩn, hư hỏng; sản phẩm còn nguyên tag mác.</li>
+          <li>Khách hàng vui lòng đổi sản phẩm bằng giá hoặc cao hơn và thanh toán tiền chênh lệch, nếu sản phẩm đổi giá thấp hơn shop không hoàn phần tiền thừa.</li>
+          <li>Khách hàng vui lòng thanh toán phí ship 2 chiều khi có nhu cầu đổi hàng. Nếu khách hàng đổi tại cửa hàng vui lòng ghé sau 16h mỗi ngày, khi đến đổi đem theo mã đơn hàng.</li>
+          <li>HẠ MIÊN xin phép không chịu trách nhiệm với lí do NHÂN VIÊN TƯ VẤN SAI vì toàn bộ tư vấn về sản phẩm chỉ mang tính chất tham khảo, nên không thể chính xác tuyệt đối. Mỗi sản phẩm đều có số đo 3 vòng cụ thể, tuy nhiên việc chọn size phụ thuộc nhiều vào form dáng của người mặc và cảm giác mặc của mỗi khách hàng. </li>
+          <li>Nếu sản phẩm bị lỗi kỹ thuật từ phía shop, shop sẽ chịu hoàn toàn phí ship đổi 2 chiều cho khách hàng. </li>
+          <li> Nếu không thể đổi đúng hạn vui lòng liên hệ hotline 0337 473 458 để được hỗ trợ. </li>
+          <li>HẠ MIÊN không có chính sách hoàn tiền với bất kì trường hợp nào, mong khách hàng thông cảm!</li>
+        </ul>
+      </div>
+
+      <div class="pm-tab-content" id="tab-guide">
+        <ul>
+          <li>Giặt tay hoặc giặt máy chế độ nhẹ với nước lạnh.</li>
+          <li>Không sử dụng thuốc tẩy; không giặt chung với quần áo màu đậm.</li>
+          <li>Phơi trong bóng mát, tránh ánh nắng trực tiếp để giữ màu sắc bền đẹp.</li>
+          <li>Ủi ở nhiệt độ thấp (dưới 110°C) hoặc ủi mặt trái vải.</li>
+          <li>Bảo quản nơi khô ráo, thoáng mát; tránh nơi ẩm ướt.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pm-related">
+      <div class="pm-related-title">SẢN PHẨM LIÊN QUAN</div>
+      <div class="pm-related-line"></div>
+      <div class="pm-related-grid">
+
+        <div class="pm-rel-card" onclick="openProduct(relatedProducts[0])">
+          <div class="pm-rel-thumb">
+            <div class="img-box">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+          </div>
+          <div class="pm-rel-name">Áo Dệt Kim Avon Top RR26DK26</div>
+          <div class="pm-rel-price">380.000đ</div>
+        </div>
+
+        <div class="pm-rel-card" onclick="openProduct(relatedProducts[1])">
+          <div class="pm-rel-thumb">
+            <div class="img-box">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+          </div>
+          <div class="pm-rel-name">Váy Quần Veres Skort RR26VQ06</div>
+          <div class="pm-rel-price">520.000đ</div>
+        </div>
+
+        <div class="pm-rel-card" onclick="openProduct(relatedProducts[2])">
+          <div class="pm-rel-thumb">
+            <div class="img-box">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+          </div>
+          <div class="pm-rel-name">Áo Thun Nữ Boa Top RR26AT11</div>
+          <div class="pm-rel-price">330.000đ</div>
+        </div>
+
+        <div class="pm-rel-card" onclick="openProduct(relatedProducts[3])">
+          <div class="pm-rel-thumb">
+            <div class="img-box">
+              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+          </div>
+          <div class="pm-rel-name">Set Áo và Quần Nữ Hella RR26SQ11</div>
+          <div class="pm-rel-price">690.000đ</div>
+        </div>
+
+      </div>
+    </div></div></div><div id="quick-add-modal">
+  <div class="qa-panel">
+    <button class="qa-close" onclick="closeQuickAdd()">✕</button>
+    <h3 class="qa-title">TUỲ CHỌN SẢN PHẨM</h3>
+    <div class="qa-product-name" id="qa-name">Tên sản phẩm</div>
+    
+    <div class="pm-label" style="margin-top:15px">Kích thước: <span id="qa-size-selected">XS</span></div>
+    <div class="pm-sizes">
+      <button class="qa-size-btn active" onclick="qaSelectSize(this)">XS</button>
+      <button class="qa-size-btn" onclick="qaSelectSize(this)">S</button>
+      <button class="qa-size-btn" onclick="qaSelectSize(this)">M</button>
+      <button class="qa-size-btn" onclick="qaSelectSize(this)">L</button>
+      <button class="qa-size-btn" onclick="qaSelectSize(this)">XL</button>
+    </div>
+
+    <div class="pm-label" style="margin-top:15px">Số lượng:</div>
+    <div class="pm-qty" style="width: fit-content; margin-bottom: 20px;">
+      <button class="pm-qty-btn" onclick="qaQty(-1)">−</button>
+      <div class="pm-qty-num" id="qa-qty-num">1</div>
+      <button class="pm-qty-btn" onclick="qaQty(1)">+</button>
+    </div>
+
+    <button class="auth-btn" onclick="confirmQuickAdd()">THÊM VÀO GIỎ</button>
+  </div>
+</div>
+
+<div class="toast" id="app-toast">
+  <span id="toast-msg">Đã thêm vào yêu thích</span>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
