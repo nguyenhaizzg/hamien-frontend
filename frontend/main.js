@@ -11,7 +11,7 @@ function loadNewArrivals() {
             
             grid.innerHTML = data.map(p => {
                 const safeData = JSON.stringify({
-                    name: p.name, price: p.price, sku: p.sku, imgs: [p.image_url]
+                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
                 }).replace(/'/g, "&apos;");
 
                 return `
@@ -47,7 +47,7 @@ function loadBestsellers() {
             grid.innerHTML = data.map(p => {
                 // Đóng gói data để tái sử dụng cho Modal Chi Tiết Sản Phẩm
                 const safeData = JSON.stringify({
-                    name: p.name, price: p.price, sku: p.sku, imgs: [p.image_url]
+                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
                 }).replace(/'/g, "&apos;");
 
                 return `
@@ -973,7 +973,7 @@ function filterCategory(key, name) {
 
         gridEl.innerHTML = products.map(p => {
             const safeData = JSON.stringify({
-                name: p.name, price: p.price, sku: p.sku, imgs: [p.image_url]
+                name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
             }).replace(/'/g, "&apos;");
 
             return `
