@@ -1,6 +1,40 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadBestsellers();
+    loadNewArrivals();
 });
+function loadNewArrivals() {
+    fetch('https://Nguyenhai.pythonanywhere.com/api/products/new')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.getElementById('new-arrival-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = data.map(p => {
+                const safeData = JSON.stringify({
+                    name: p.name, price: p.price, sku: p.sku, imgs: [p.image_url]
+                }).replace(/'/g, "&apos;");
+
+                return `
+                  <div class="product-card" onclick='openProduct(${safeData})' style="cursor:pointer">
+                    <div class="product-thumb">
+                      <div class="img-box">
+                        <img src="${p.image_url}" alt="${p.name}"/>
+                      </div>
+                      <div class="product-quick">
+                        <button class="product-qbtn" onclick="event.stopPropagation(); addToCartFromCard(this)">THÊM VÀO GIỎ</button>
+                        <button class="product-qbtn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">YÊU THÍCH</button>
+                      </div>
+                    </div>
+                    <div class="product-info">
+                      <h4>${p.name}</h4>
+                      <div class="product-price">${p.price}</div>
+                    </div>
+                  </div>
+                `;
+            }).join('');
+        })
+        .catch(error => console.error("Lỗi khi kết nối Database (Sản phẩm mới):", error));
+}
 
 function loadBestsellers() {
     // Gọi đến API số 2 bạn vừa viết bằng Python
