@@ -1083,17 +1083,6 @@ function renderCheckout() {
   document.getElementById('checkout-total').textContent    = formatPrice(total);
 }
 
-  // Tính lại tổng tiền
-  const subtotal = cartItems.reduce((s, i) => s + parsePrice(i.price) * i.qty, 0);
-  const shipNum  = subtotal >= 500000 ? 0 : 30000;
-  const ship     = shipNum === 0 ? 'Miễn phí' : formatPrice(shipNum);
-  const total    = subtotal + shipNum;
-
-  document.getElementById('checkout-subtotal').textContent = formatPrice(subtotal);
-  document.getElementById('checkout-ship').textContent     = ship;
-  document.getElementById('checkout-total').textContent    = formatPrice(total);
-}
-
 function placeOrder() {
   if (cartItems.length === 0) {
     showToast('Giỏ hàng trống!', 'info');
