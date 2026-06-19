@@ -961,28 +961,74 @@ function filterCategory(key, name) {
   fetch(`https://Nguyenhai.pythonanywhere.com/api/products?category=${key}`)
     .then(response => response.json())
     .then(products => {
-        if (products.length === 0) {
-            gridEl.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--gray); padding: 60px 0;">Hiện tại mục này đang được cập nhật sản phẩm mới.</div>`;
-            return;
-        }
-
-        gridEl.innerHTML = products.map(p => {
-            const safeData = JSON.stringify({
-                name: p.name, price: p.price, code: p.code, imgs: [p.image_url_1, p.image_url_2].filter(url => url) // Lấy tất cả ảnh có sẵn
-            }).replace(/'/g, "&apos;");
-
-            return `
-              <div class="dm-card" onclick='openProduct(${safeData})'>
-                <div class="dm-thumb">
-                  <div class="img-box" style="height:100%">
-                    <img src="${p.image_url_1}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; display:block;"/>
-                  </div>
-                </div>
-                <div class="dm-name">${p.name}</div>
-                <div class="dm-price">${p.price}</div>
-              </div>
-            `;
-        }).join('');
+      // 1. Lưu dữ liệu thô vào biến toàn cục
+        currentCategoryProducts = products; 
+        
+        // 2. Reset ô Dropdown về trạng thái Mặc định mỗi khi chuyển danh mục
+        const sortSelect = document.getElementById('sortSelect');
+        if (sortSelect) sortSelect.value = 'default';
+        
+        // 3. Gọi hàm vẽ giao diện
+        renderCategoryGrid(currentCategoryProducts);
     })
     .catch(err => console.error("Lỗi kết nối:", err));
+}
+
+// Biến toàn cục để lưu trữ mảng sản phẩm hiện tại của danh mục
+let currentCategoryProducts = [];
+
+// Hàm 1: Tiền xử lý dữ liệu - Xóa dấu chấm và chữ 'đ' để ép kiểu về số nguyên
+function parsePrice(priceStr) {
+    return parseInt(priceStr.replace(/\./g, '').replace('đ', ''), 10);
+}
+
+// Hàm 2: Hàm thực thi sắp xếp khi người dùng chọn Dropdown
+function sortProducts() {
+    const sortValue = document.getElementById('sortSelect').value;
+    
+    // Tạo một bản sao của mảng dữ liệu để không làm xáo trộn mảng gốc
+    let sortedProducts = [...currentCategoryProducts];
+
+    if (sortValue === 'asc') {
+        // Tăng dần
+        sortedProducts.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+    } else if (sortValue === 'desc') {
+        // Giảm dần
+        sortedProducts.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+    }
+
+    // Đưa mảng đã sắp xếp vào hàm vẽ giao diện
+    renderCategoryGrid(sortedProducts);
+}
+
+// Hàm 3: Hàm vẽ giao diện (Tách ra từ đoạn code cũ của bạn để tái sử dụng)
+function renderCategoryGrid(productsList) {
+    const gridEl = document.getElementById('dm-products-grid');
+    if (!gridEl) return;
+
+    if (productsList.length === 0) {
+        gridEl.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--gray); padding: 60px 0;">Hiện tại mục này đang được cập nhật sản phẩm mới.</div>`;
+        return;
+    }
+
+    gridEl.innerHTML = productsList.map(p => {
+        // Lấy tất cả ảnh có sẵn
+        const safeData = JSON.stringify({
+            name: p.name, price: p.price, code: p.code, imgs: [p.image_url_1, p.image_url_2].filter(url => url) 
+        }).replace(/'/g, "&apos;");
+
+        return `
+          <div class="dm-card" onclick='openProduct(${safeData})'>
+            <div class="dm-thumb">
+              <div class="img-box" style="height:100%">
+                <img src="${p.image_url_1}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;"/>
+              </div>
+            </div>
+            <div class="dm-info">
+              <h4>${p.name}</h4>
+              <div class="dm-price">${p.price}</div>
+            </div>
+          </div>
+        `;
+    }).join('');
 }
