@@ -1045,7 +1045,7 @@ function renderCheckout() {
     return;
   }
 
-  // Đổ dữ liệu từ Giỏ Hàng sang Thanh toán (Bao gồm cả Ảnh)
+  // Đổ dữ liệu từ Giỏ Hàng sang Thanh toán (Đã bỏ số trên ảnh, thêm dòng Số lượng)
   list.innerHTML = cartItems.map(item => {
     const unitPrice  = parsePrice(item.price);
     const totalPrice = unitPrice * item.qty;
@@ -1061,16 +1061,27 @@ function renderCheckout() {
           <div class="img-box" style="height:100%; padding:0; border:1px solid var(--border); border-radius:4px; overflow:hidden;">
             ${imgHtml}
           </div>
-          <div class="checkout-item-qty">${item.qty}</div>
         </div>
         <div class="checkout-item-info">
           <div class="checkout-item-name">${item.name}</div>
           <div class="checkout-item-meta">Size: ${item.size}</div>
+          <div class="checkout-item-meta" style="margin-top: 2px;">Số lượng: ${item.qty}</div>
         </div>
         <div class="checkout-item-price">${formatPrice(totalPrice)}</div>
       </div>
     `;
   }).join('');
+
+  // Tính lại tổng tiền
+  const subtotal = cartItems.reduce((s, i) => s + parsePrice(i.price) * i.qty, 0);
+  const shipNum  = subtotal >= 500000 ? 0 : 30000;
+  const ship     = shipNum === 0 ? 'Miễn phí' : formatPrice(shipNum);
+  const total    = subtotal + shipNum;
+
+  document.getElementById('checkout-subtotal').textContent = formatPrice(subtotal);
+  document.getElementById('checkout-ship').textContent     = ship;
+  document.getElementById('checkout-total').textContent    = formatPrice(total);
+}
 
   // Tính lại tổng tiền
   const subtotal = cartItems.reduce((s, i) => s + parsePrice(i.price) * i.qty, 0);
