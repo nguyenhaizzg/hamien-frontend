@@ -975,7 +975,7 @@ function filterCategory(key, name) {
               <div class="dm-card" onclick='openProduct(${safeData})'>
                 <div class="dm-thumb">
                   <div class="img-box" style="height:100%">
-                    <img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+                    <img src="${p.image_url_1}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; display:block;"/>
                   </div>
                 </div>
                 <div class="dm-name">${p.name}</div>
