@@ -958,7 +958,7 @@ function filterCategory(key, name) {
   if (!gridEl) return;
 
   // Gọi đến API số 1 với tham số category_id tương ứng
-  fetch(`http://Nguyenhai.pythonanywhere.com/api/products?category=${key}`)
+  fetch(`https://Nguyenhai.pythonanywhere.com/api/products?category=${key}`)
     .then(response => response.json())
     .then(products => {
         if (products.length === 0) {
