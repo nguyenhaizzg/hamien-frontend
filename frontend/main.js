@@ -901,9 +901,9 @@ function openHelp(key) {
   if(activeLink) activeLink.classList.add('active');
 }
 
-// Ghi đè hàm showPage để thêm chức năng mở trang help
 showPage = function(page) {
-  const pages = ['page-home','page-danhmuc','page-wishlist','page-cart', 'page-bosuutap', 'page-help'];
+  // Bổ sung 'page-checkout' vào mảng
+  const pages = ['page-home','page-danhmuc','page-wishlist','page-cart', 'page-bosuutap', 'page-help', 'page-checkout'];
   pages.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
@@ -912,7 +912,7 @@ showPage = function(page) {
   const target = document.getElementById('page-' + page);
   if (target) target.style.display = 'block';
 
-  ['nav-home','nav-danhmuc', 'nav-bosuutap', 'nav-help'].forEach(id => {
+  ['nav-home','nav-danhmuc', 'nav-bosuutap', 'nav-help', 'nav-checkout'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('nav-active');
   });
@@ -922,6 +922,7 @@ showPage = function(page) {
 
   if (page === 'wishlist') renderWishlist();
   if (page === 'cart')     renderCart();
+  if (page === 'checkout') renderCheckout(); // Kích hoạt nạp dữ liệu thanh toán
   if (page === 'bosuutap') closeCollection();
   if (page === 'danhmuc')  filterCategory('ao', 'Áo');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1031,4 +1032,81 @@ function renderCategoryGrid(productsList) {
           </div>
         `;
     }).join('');
+}
+function renderCheckout() {
+  const list = document.getElementById('checkout-items-list');
+  if (!list) return;
+
+  if (cartItems.length === 0) {
+    list.innerHTML = '<p style="font-size:13px; color:var(--gray); margin-bottom: 20px;">Chưa có sản phẩm nào để thanh toán.</p>';
+    document.getElementById('checkout-subtotal').textContent = '0đ';
+    document.getElementById('checkout-ship').textContent = '0đ';
+    document.getElementById('checkout-total').textContent = '0đ';
+    return;
+  }
+
+  // Đổ dữ liệu từ Giỏ Hàng sang Thanh toán (Bao gồm cả Ảnh)
+  list.innerHTML = cartItems.map(item => {
+    const unitPrice  = parsePrice(item.price);
+    const totalPrice = unitPrice * item.qty;
+    
+    const imgSrc = (item.imgs && item.imgs[0]) ? item.imgs[0] : (item.imgFallback || '');
+    const imgHtml = imgSrc 
+      ? `<img src="${imgSrc}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;"/>`
+      : `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`;
+
+    return `
+      <div class="checkout-item">
+        <div class="checkout-item-img">
+          <div class="img-box" style="height:100%; padding:0; border:1px solid var(--border); border-radius:4px; overflow:hidden;">
+            ${imgHtml}
+          </div>
+          <div class="checkout-item-qty">${item.qty}</div>
+        </div>
+        <div class="checkout-item-info">
+          <div class="checkout-item-name">${item.name}</div>
+          <div class="checkout-item-meta">Size: ${item.size}</div>
+        </div>
+        <div class="checkout-item-price">${formatPrice(totalPrice)}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Tính lại tổng tiền
+  const subtotal = cartItems.reduce((s, i) => s + parsePrice(i.price) * i.qty, 0);
+  const shipNum  = subtotal >= 500000 ? 0 : 30000;
+  const ship     = shipNum === 0 ? 'Miễn phí' : formatPrice(shipNum);
+  const total    = subtotal + shipNum;
+
+  document.getElementById('checkout-subtotal').textContent = formatPrice(subtotal);
+  document.getElementById('checkout-ship').textContent     = ship;
+  document.getElementById('checkout-total').textContent    = formatPrice(total);
+}
+
+function placeOrder() {
+  if (cartItems.length === 0) {
+    showToast('Giỏ hàng trống!', 'info');
+    return;
+  }
+  
+  // Xác thực Form
+  const name = document.getElementById('co-name').value.trim();
+  const phone = document.getElementById('co-phone').value.trim();
+  const address = document.getElementById('co-address').value.trim();
+
+  if (!name || !phone || !address) {
+    showToast('Vui lòng điền đủ Họ tên, Số điện thoại và Địa chỉ!', 'info');
+    return;
+  }
+
+  // Nếu hoàn thành -> Báo thành công, xóa giỏ hàng và về trang chủ
+  showToast('ĐẶT HÀNG THÀNH CÔNG! HẠ MIÊN sẽ liên hệ sớm nhất.', 'success');
+  
+  cartItems = [];
+  updateBadges();
+  renderCart();
+  
+  setTimeout(() => {
+    showPage('home');
+  }, 2000);
 }
