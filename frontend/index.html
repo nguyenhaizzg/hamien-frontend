@@ -291,11 +291,12 @@
                 <span class="dm-title" id="dm-category-title">Thời Trang Nữ</span>
                 <div class="dm-sort">
                   Sắp xếp:
-                  <select>
-                    <option>Mặc định</option>
-                    <option>Giá tăng dần</option>
-                    <option>Giá giảm dần</option>
-                  </select>
+                    <select id="sortSelect" onchange="sortProducts()">
+                      <option value="default">Mặc định</option>
+                      <option value="asc">Giá Tăng dần</option>
+                      <option value="desc">Giá Giảm dần</option>
+                    </select>
+
                 </div>
               </div>
 
