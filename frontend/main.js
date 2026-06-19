@@ -11,14 +11,14 @@ function loadOutstanding() {
 
             grid.innerHTML = data.map(p => {
                 const safeData = JSON.stringify({
-                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
+                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url_1, p.image_url_2]
                 }).replace(/'/g, "&apos;");
 
                 return `
                   <div class="product-card" onclick='openProduct(${safeData})' style="cursor:pointer">
                     <div class="product-thumb">
                       <div class="img-box">
-                        <img src="${p.image_url}" alt="${p.name}"/>
+                        <img src="${p.image_url_1}" alt="${p.name}"/>
                       </div>
                       <div class="product-quick">
                         <button class="product-qbtn" onclick="event.stopPropagation(); addToCartFromCard(this)">THÊM VÀO GIỎ</button>
@@ -44,14 +44,14 @@ function loadNewArrivals() {
             
             grid.innerHTML = data.map(p => {
                 const safeData = JSON.stringify({
-                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
+                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url_1, p.image_url_2]
                 }).replace(/'/g, "&apos;");
 
                 return `
                   <div class="product-card" onclick='openProduct(${safeData})' style="cursor:pointer">
                     <div class="product-thumb">
                       <div class="img-box">
-                        <img src="${p.image_url}" alt="${p.name}"/>
+                        <img src="${p.image_url_1}" alt="${p.name}"/>
                       </div>
                       <div class="product-quick">
                         <button class="product-qbtn" onclick="event.stopPropagation(); addToCartFromCard(this)">THÊM VÀO GIỎ</button>
@@ -69,41 +69,6 @@ function loadNewArrivals() {
         .catch(error => console.error("Lỗi khi kết nối Database (Sản phẩm mới):", error));
 }
 
-function loadOutstanding() {
-    // Gọi đến API số 2 bạn vừa viết bằng Python
-    fetch('http://Nguyenhai.pythonanywhere.com/api/products/outstanding')
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('outstanding-grid');
-            if (!grid) return;
-            
-            grid.innerHTML = data.map(p => {
-                // Đóng gói data để tái sử dụng cho Modal Chi Tiết Sản Phẩm
-                const safeData = JSON.stringify({
-                    name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
-                }).replace(/'/g, "&apos;");
-
-                return `
-                  <div class="product-card" onclick='openProduct(${safeData})' style="cursor:pointer">
-                    <div class="product-thumb">
-                      <div class="img-box">
-                        <img src="${p.image_url}" alt="${p.name}"/>
-                      </div>
-                      <div class="product-quick">
-                        <button class="product-qbtn" onclick="event.stopPropagation(); addToCartFromCard(this)">THÊM VÀO GIỎ</button>
-                        <button class="product-qbtn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">YÊU THÍCH</button>
-                      </div>
-                    </div>
-                    <div class="product-info">
-                      <h4>${p.name}</h4>
-                      <div class="product-price">${p.price}</div>
-                    </div>
-                  </div>
-                `;
-            }).join('');
-        })
-        .catch(error => console.error("Lỗi khi kết nối Database:", error));
-}
 function showPage(page) {
   document.getElementById('page-home').style.display    = page === 'home'    ? 'block' : 'none';
   document.getElementById('page-danhmuc').style.display = page === 'danhmuc' ? 'block' : 'none';
@@ -1003,7 +968,7 @@ function filterCategory(key, name) {
 
         gridEl.innerHTML = products.map(p => {
             const safeData = JSON.stringify({
-                name: p.name, price: p.price, code: p.code, imgs: [p.image_url]
+                name: p.name, price: p.price, code: p.code, imgs: [p.image_url_1, p.image_url_2].filter(url => url) // Lấy tất cả ảnh có sẵn
             }).replace(/'/g, "&apos;");
 
             return `
